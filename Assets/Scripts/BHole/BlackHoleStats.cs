@@ -11,6 +11,11 @@ public class BlackHoleStats : MonoBehaviour
     public float lonliness;
     public float accumulation;
 
+    public float loveacc;
+    public float love;
+    public TextMeshProUGUI loveValUI;
+    public FloatHeart floatHeart;
+
     public float togethernessMax = 10000;
 
     [Tooltip("Exponential Cutoff")]
@@ -29,11 +34,12 @@ public class BlackHoleStats : MonoBehaviour
 
     public void Start()
     {
-        happinessCounter = StartCoroutine(LonlinessRoutine());
+        happinessCounter = StartCoroutine(UpdateRoutine());
     }
 
     public void FixedUpdate()
     {
+        // Love
         foreach(ForceObject fo in ForceManager.ForceReceivers)
         {
             if (fo == null) continue;
@@ -44,10 +50,38 @@ public class BlackHoleStats : MonoBehaviour
             if (hap > 0) accumulation += hap * Time.fixedDeltaTime * fo.rb.mass;
         }
 
-        timeAlive += Time.fixedDeltaTime;
 
+        // Time Alive
+        timeAlive += Time.fixedDeltaTime;
         float minutes = timeAlive / 60;
         _timer.text = $"{Mathf.Floor(minutes)} : {(Mathf.Floor(timeAlive)%60).ToString("00")}";
+
+        // Love
+        foreach (ForceObject fo in ForceManager.ForceReceivers)
+        {
+            if (fo == null) continue;
+
+            float mag = (fo.transform.position - transform.position).sqrMagnitude;
+            float hap = -mag + happyDistSq;
+
+            if (hap > 0)
+            {
+                //loveacc += hap * Time.fixedDeltaTime * fo.rb.mass;
+
+                if (Random.Range(0, 1f) > 0.99f)
+                {
+                    love += fo.rb.mass;
+                    loveacc = 0;
+                    loveValUI.text = $"{Mathf.Round(love)}";
+
+                    FloatHeart fh = Instantiate(floatHeart, transform);
+                    fh.origin = transform;
+                    fh.target = fo.transform;
+                    fh.transform.localScale *= fo.rb.mass;
+                }
+            }
+        }
+
     }
 
     public void Impact(float mass)
@@ -56,7 +90,7 @@ public class BlackHoleStats : MonoBehaviour
         UpdateLonlinessUI();
     }
 
-    IEnumerator LonlinessRoutine()
+    IEnumerator UpdateRoutine()
     {
         while (true)
         {
@@ -64,7 +98,13 @@ public class BlackHoleStats : MonoBehaviour
             accumulation = 0;
 
             UpdateLonlinessUI();
-            yield return new WaitForSeconds(1);
+
+            // Love
+            //love += loveacc;
+            //loveacc = 0;
+            //loveValUI.text = $"{Mathf.Round(love)}";
+
+            yield return new WaitForSeconds(0.1f);
         }
     }
 
@@ -79,6 +119,5 @@ public class BlackHoleStats : MonoBehaviour
     {
         _value.text = $"{Mathf.Round(lonliness)}";
         _slider.value = lonliness / togethernessMax;
-
     }
 }

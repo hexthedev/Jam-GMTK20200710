@@ -58,8 +58,8 @@ public class BlackHoleControl : MonoBehaviour
         isPaused = false;
     }
 
-    //private void OnTriggerEnter2D(Collider collision)
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
+    //private void OnCollisionEnter2D(Collision2D collision)
     {
         ForceObject col = collision.gameObject.GetComponent<ForceObject>();
 
@@ -74,13 +74,13 @@ public class BlackHoleControl : MonoBehaviour
         Destroy(collision.gameObject);
         stats.Impact(col.rb.mass);
 
-        List<ContactPoint2D> contacts = new List<ContactPoint2D>();
-        collision.GetContacts(contacts);
+        //List<ContactPoint2D> contacts = new List<ContactPoint2D>();
+        //collision.GetContacts(contacts);
 
-        // Attempt to dampen stof
-        foreach(ContactPoint2D cp2 in contacts)
-        {
-            body.AddForce(cp2.normalImpulse * -cp2.normal * collisionDampen, ForceMode2D.Impulse);
-        }
+        //// Attempt to dampen stof
+        //foreach(ContactPoint2D cp2 in contacts)
+        //{
+        //    body.AddForce(cp2.normalImpulse * -cp2.normal * collisionDampen, ForceMode2D.Impulse);
+        //}
     }
 }
