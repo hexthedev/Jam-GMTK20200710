@@ -18,6 +18,9 @@ public class BlackHoleControl : MonoBehaviour
 
     public float collisionDampen = 0.90f;
 
+    [Header("Stats")]
+    public BlackHoleStats stats;
+
     [Header("Debug")]
     public bool isPaused = false;
     public Vector2 cachedVelo;
@@ -69,10 +72,12 @@ public class BlackHoleControl : MonoBehaviour
         puller.distanceFac += ms * distancePullScale;
 
         Destroy(collision.gameObject);
+        stats.Impact(col.rb.mass);
 
         List<ContactPoint2D> contacts = new List<ContactPoint2D>();
         collision.GetContacts(contacts);
 
+        // Attempt to dampen stof
         foreach(ContactPoint2D cp2 in contacts)
         {
             body.AddForce(cp2.normalImpulse * -cp2.normal * collisionDampen, ForceMode2D.Impulse);
