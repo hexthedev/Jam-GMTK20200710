@@ -6,6 +6,10 @@ public class ForceObject : MonoBehaviour
 {
     public Rigidbody2D rb;
 
+    [Header("Options")]
+    public float size = 1;
+    public FloatHeart fh;
+
     [Header("Debug")]
     public Vector3 cachedVelocity;
     public float cachedAngularVelocity;
@@ -17,9 +21,27 @@ public class ForceObject : MonoBehaviour
         rb.mass = mass;
     }
 
+    public void StealMass(float mass)
+    {
+        if(rb.mass < mass)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        rb.mass -= mass;
+        transform.localScale -= Vector3.one * mass;
+    }
+
     public void Awake()
     {
         ForceManager.ForceReceivers.Add(this);
+    }
+
+    public void OnValidate()
+    {
+        rb.mass = size;
+        transform.localScale = Vector3.one * size;
     }
 
     public void Pause()

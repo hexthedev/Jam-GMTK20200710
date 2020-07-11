@@ -134,3 +134,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 5286213578981911925}
+  size: 1
+  fh: {fileID: 0}
+  cachedVelocity: {x: 0, y: 0, z: 0}
+  cachedAngularVelocity: 0
+  isPaused: 0

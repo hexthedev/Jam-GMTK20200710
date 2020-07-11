@@ -38,7 +38,7 @@ public class BlackHoleControl : MonoBehaviour
 
     private void FixedUpdate()
     {
-        body.AddForce(input * speedFac);
+        body.AddForce(input * speedFac * body.mass );
     }
 
     public void Pause()
@@ -58,21 +58,27 @@ public class BlackHoleControl : MonoBehaviour
         isPaused = false;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    //private void OnCollisionEnter2D(Collision2D collision)
+    public void RecieveMass(float ms)
     {
-        ForceObject col = collision.gameObject.GetComponent<ForceObject>();
-
-        float ms = col.rb.mass;
         float sc = ms * scaleScale;
         transform.localScale += new Vector3(sc, sc, sc);
-        
+
         body.mass += ms * massScale;
         puller.forceFac += ms * pullScale;
         puller.distanceFac += ms * distancePullScale;
+    }
 
-        Destroy(collision.gameObject);
-        stats.Impact(col.rb.mass);
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    //private void OnCollisionEnter2D(Collision2D collision)
+    {
+        //ForceObject col = collision.gameObject.GetComponent<ForceObject>();
+
+        //float ms = col.rb.mass;
+        //RecieveMass(ms);
+
+        //Destroy(collision.gameObject);
+        //stats.Impact(col.rb.mass);
 
         //List<ContactPoint2D> contacts = new List<ContactPoint2D>();
         //collision.GetContacts(contacts);

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,12 +9,14 @@ public class FloatHeart : MonoBehaviour
     public Transform origin;
 
     public float journey;
+    public Action onEnd; 
 
     public void FixedUpdate()
     {
         if (journey >= 1 || target == null || origin == null)
         {
             Destroy(gameObject);
+            if (onEnd != null) onEnd();
             return;
         }
 

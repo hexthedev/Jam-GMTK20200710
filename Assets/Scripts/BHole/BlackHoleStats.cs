@@ -6,24 +6,36 @@ using UnityEngine.UI;
 
 public class BlackHoleStats : MonoBehaviour
 {
-    Coroutine happinessCounter;
+    //Coroutine happinessCounter;
 
+    [Header("Old")]
     public float lonliness;
     public float accumulation;
+    public float togethernessMax = 10000;
+    public float lonliLossPerSecond = 100;
+    public float lonliLossPerImpactMass = 500;
 
-    public float loveacc;
+    [Header("Love")]
+    public float loveDistance;
+    public float loveChance;
+    public float loveAttemptSeconds;
     public float love;
     public TextMeshProUGUI loveValUI;
     public FloatHeart floatHeart;
 
-    public float togethernessMax = 10000;
+    [Header("Mass")]
+    public float stealDistance;
+    public float stealAttemptSeconds;
+    public float stealChance;
+    public TextMeshProUGUI massScore;
+
+    public FloatHeart massSteal;
+    public BlackHoleControl cont;
 
     [Tooltip("Exponential Cutoff")]
     public float happyDistSq;
 
-    public float lonliLossPerSecond = 100;
-    public float lonliLossPerImpactMass = 500;
-
+    [Tooltip("Time")]
     public float timeAlive;
 
     [Header("UI")]
@@ -34,90 +46,131 @@ public class BlackHoleStats : MonoBehaviour
 
     public void Start()
     {
-        happinessCounter = StartCoroutine(UpdateRoutine());
+        StartCoroutine(UpdateLove());
+        StartCoroutine(UpdateSteal());
     }
 
     public void FixedUpdate()
     {
-        // Love
-        foreach(ForceObject fo in ForceManager.ForceReceivers)
-        {
-            if (fo == null) continue;
-
-            float mag = (fo.transform.position - transform.position).sqrMagnitude;
-            float hap = -mag + happyDistSq;
-
-            if (hap > 0) accumulation += hap * Time.fixedDeltaTime * fo.rb.mass;
-        }
-
-
         // Time Alive
         timeAlive += Time.fixedDeltaTime;
         float minutes = timeAlive / 60;
-        _timer.text = $"{Mathf.Floor(minutes)} : {(Mathf.Floor(timeAlive)%60).ToString("00")}";
-
-        // Love
-        foreach (ForceObject fo in ForceManager.ForceReceivers)
-        {
-            if (fo == null) continue;
-
-            float mag = (fo.transform.position - transform.position).sqrMagnitude;
-            float hap = -mag + happyDistSq;
-
-            if (hap > 0)
-            {
-                //loveacc += hap * Time.fixedDeltaTime * fo.rb.mass;
-
-                if (Random.Range(0, 1f) > 0.99f)
-                {
-                    love += fo.rb.mass;
-                    loveacc = 0;
-                    loveValUI.text = $"{Mathf.Round(love)}";
-
-                    FloatHeart fh = Instantiate(floatHeart, transform);
-                    fh.origin = transform;
-                    fh.target = fo.transform;
-                    fh.transform.localScale *= fo.rb.mass;
-                }
-            }
-        }
-
+        _timer.text = $"{Mathf.Floor(minutes)} : {(Mathf.Floor(timeAlive) % 60).ToString("00")}";
     }
 
-    public void Impact(float mass)
-    {
-        UpdateLonlines(-lonliLossPerImpactMass * mass);
-        UpdateLonlinessUI();
-    }
-
-    IEnumerator UpdateRoutine()
+    IEnumerator UpdateLove()
     {
         while (true)
         {
-            UpdateLonlines(accumulation - lonliLossPerSecond);
-            accumulation = 0;
+            yield return new WaitForSeconds(loveAttemptSeconds);
 
-            UpdateLonlinessUI();
+            foreach (ForceObject fo in ForceManager.ForceReceivers)
+            {
+                if (fo == null) continue;
+                float mag = (fo.transform.position - transform.position).magnitude;
+                float scale = transform.localScale.x;
 
-            // Love
-            //love += loveacc;
-            //loveacc = 0;
-            //loveValUI.text = $"{Mathf.Round(love)}";
-
-            yield return new WaitForSeconds(0.1f);
+                float inLoveDistance = -mag + loveDistance + cont.body.mass;
+                if (inLoveDistance > 0)
+                {
+                    if (Random.Range(0, 100f) <= loveChance)
+                    {
+                        FloatHeart fh = Instantiate(floatHeart, transform);
+                        fh.origin = transform;
+                        fh.target = fo.transform;
+                        fh.onEnd = () =>
+                        {
+                            if (fo != null && fo.rb != null)
+                            {
+                                love += fo.rb.mass;
+                                loveValUI.text = $"{Mathf.Round(love)}";
+                            }
+                        };
+                    }
+                }
+            }
         }
     }
 
-    public void UpdateLonlines(float lone)
+    IEnumerator UpdateSteal()
     {
-        lonliness += lone;
-        lonliness = Mathf.Clamp(lonliness, 0, togethernessMax);
-        if (lonliness <= 0) gameover.SetActive(true);
+        while (true)
+        {
+            yield return new WaitForSeconds(stealAttemptSeconds);
+
+            foreach (ForceObject fo in ForceManager.ForceReceivers)
+            {
+                if (fo == null) continue;
+                float mag = (fo.transform.position - transform.position).magnitude;
+                float scale = transform.localScale.x; // distances are modified by scale
+
+                float inStealDistance = -mag + stealDistance + cont.body.mass;
+                if (inStealDistance > 0)
+                {
+                    if (Random.Range(0, 100f) <= stealChance)
+                    {
+                        //float close = 1 - inStealDistance / (stealDistance + scale); // larger when closer
+
+                        float massToSteal = 1f;
+                        fo.StealMass(massToSteal);
+
+                        FloatHeart f = Instantiate(massSteal);
+                        f.origin = fo.transform;
+                        f.target = transform;
+                        //f.transform.localScale = Vector3.one * massToSteal;
+
+                        f.onEnd = () =>
+                        {
+                            cont.RecieveMass(massToSteal);
+                            massScore.text = $"{Mathf.Round(cont.body.mass)}";
+                        };
+                    }
+                }
+            }
+        }
     }
 
-    public void UpdateLonlinessUI()
+    private void OnDrawGizmos()
     {
-        _value.text = $"{Mathf.Round(lonliness)}";
-        _slider.value = lonliness / togethernessMax;
+        Gizmos.DrawLine(transform.position, transform.position + Vector3.up * (loveDistance + cont.body.mass));
+        Gizmos.DrawLine(transform.position, transform.position + Vector3.right * (stealDistance + cont.body.mass));
+
     }
+
+    //public void Impact(float mass)
+    //{
+    //    UpdateLonlines(-lonliLossPerImpactMass * mass);
+    //    UpdateLonlinessUI();
+    //}
+
+    //IEnumerator UpdateRoutine()
+    //{
+    //    while (true)
+    //    {
+    //UpdateLonlines(accumulation - lonliLossPerSecond);
+    //accumulation = 0;
+
+    //UpdateLonlinessUI();
+
+    // Love
+    //love += loveacc;
+    //loveacc = 0;
+    //loveValUI.text = $"{Mathf.Round(love)}";
+
+    //        yield return new WaitForSeconds(0.1f);
+    //    }
+    //}
+
+    //public void UpdateLonlines(float lone)
+    //{
+    //    lonliness += lone;
+    //    lonliness = Mathf.Clamp(lonliness, 0, togethernessMax);
+    //    //if (lonliness <= 0) gameover.SetActive(true);
+    //}
+
+    //public void UpdateLonlinessUI()
+    //{
+    //    _value.text = $"{Mathf.Round(lonliness)}";
+    //    _slider.value = lonliness / togethernessMax;
+    //}
 }
