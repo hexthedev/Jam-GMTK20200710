@@ -18,6 +18,10 @@ public class BlackHoleControl : MonoBehaviour
 
     public float collisionDampen = 0.90f;
 
+    [Header("Debug")]
+    public bool isPaused = false;
+    public Vector2 cachedVelo;
+
     public void OnMove(CallbackContext cont)
     {
         if (cont.canceled)
@@ -32,6 +36,23 @@ public class BlackHoleControl : MonoBehaviour
     private void FixedUpdate()
     {
         body.AddForce(input * speedFac);
+    }
+
+    public void Pause()
+    {
+        if (isPaused) return;
+
+        cachedVelo = body.velocity;
+        body.velocity = Vector2.zero;
+        isPaused = true;
+    }
+
+    public void UnPause()
+    {
+        if (!isPaused) return;
+
+        body.velocity = cachedVelo;
+        isPaused = false;
     }
 
     //private void OnTriggerEnter2D(Collider collision)
