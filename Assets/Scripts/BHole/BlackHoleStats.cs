@@ -24,7 +24,8 @@ public class BlackHoleStats : MonoBehaviour
     [Header("UI")]
     public TextMeshProUGUI _value;
     public TextMeshProUGUI _timer;
-    public Slider _slider; 
+    public Slider _slider;
+    public GameObject gameover;
 
     public void Start()
     {
@@ -44,6 +45,9 @@ public class BlackHoleStats : MonoBehaviour
         }
 
         timeAlive += Time.fixedDeltaTime;
+
+        float minutes = timeAlive / 60;
+        _timer.text = $"{Mathf.Floor(minutes)} : {(Mathf.Floor(timeAlive)%60).ToString("00")}";
     }
 
     public void Impact(float mass)
@@ -60,7 +64,6 @@ public class BlackHoleStats : MonoBehaviour
             accumulation = 0;
 
             UpdateLonlinessUI();
-
             yield return new WaitForSeconds(1);
         }
     }
@@ -69,6 +72,7 @@ public class BlackHoleStats : MonoBehaviour
     {
         lonliness += lone;
         lonliness = Mathf.Clamp(lonliness, 0, togethernessMax);
+        if (lonliness <= 0) gameover.SetActive(true);
     }
 
     public void UpdateLonlinessUI()

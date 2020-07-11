@@ -10,7 +10,9 @@ public class Tiler : MonoBehaviour
 
     public Transform tileRelativeReference;
 
-    public GameObject[] tileGos = new GameObject[15];
+    public int tileDim = 5;
+    public GameObject[] tileGos;
+
 
     [Header("Debug")]
     public Vector2 diff;
@@ -19,10 +21,12 @@ public class Tiler : MonoBehaviour
 
     public void Start()
     {
+        tileGos = new GameObject[5 * (tileDim * tileDim + 5) ];
+
         int index = 0;
-        for(float i = -tileSize*2; i<= tileSize*2; i+= tileSize)
+        for(float i = -tileSize* tileDim; i<= tileSize* tileDim; i+= tileSize)
         {
-            for (float j = -tileSize; j <= tileSize; j += tileSize)
+            for (float j = -tileSize * tileDim; j <= tileSize * tileDim; j += tileSize)
             {
                 GameObject ob = new GameObject($"tile({i}, {j})");
                 ob.transform.SetParent(transform);
