@@ -4,16 +4,19 @@ using UnityEngine;
 public class ForceManager : MonoBehaviour
 {
     public static List<AForceProvider> Providers = new List<AForceProvider>();
-    public static List<Rigidbody2D> ForceReceivers = new List<Rigidbody2D>();
+    public static List<ForceObject> ForceReceivers = new List<ForceObject>();
 
     public void FixedUpdate()
     {
-        foreach(Rigidbody2D rec in ForceReceivers)
+        foreach(ForceObject rec in ForceReceivers)
         {
             foreach(AForceProvider pro in Providers)
             {
+                if (rec == null || pro == null) continue;
                 pro.ApplyFrameForce(rec);
             }
         }
+
+        ForceReceivers.RemoveAll(o => o == null);
     }
 }

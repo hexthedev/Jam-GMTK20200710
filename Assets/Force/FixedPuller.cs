@@ -14,12 +14,12 @@ public class FixedPuller : AForceProvider
         ForceManager.Providers.Add(this);
     }
 
-    public override void ApplyFrameForce(Rigidbody2D mb)
+    public override void ApplyFrameForce(ForceObject mb)
     {
         pull = transform.position - mb.transform.position;
         pull_mag =  1 * distanceFac / pull.magnitude;
         direction = pull.normalized;
 
-        mb.AddForce(direction * Time.fixedDeltaTime * forceFac * pull_mag);
+        mb.rb.AddForce(direction * Time.fixedDeltaTime * forceFac * pull_mag);
     }
 }
