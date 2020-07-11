@@ -11,10 +11,12 @@ public class BlackHoleControl : MonoBehaviour
     public FixedPuller puller;
 
     [Header("Collision options")]
-    public float scaleIncrease = 0.1f;
-    public float massIncrease = 0.1f;
-    public float pullIncrease = 1f;
-    public float distancePullIncrease = 2f;
+    public float scaleScale = 0.1f;
+    public float massScale = 0.1f;
+    public float pullScale = 1f;
+    public float distancePullScale = 2f;
+
+    public float collisionDampen = 0.90f;
 
     public void OnMove(CallbackContext cont)
     {
@@ -32,13 +34,27 @@ public class BlackHoleControl : MonoBehaviour
         body.AddForce(input * speedFac);
     }
 
+    //private void OnTriggerEnter2D(Collider collision)
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        transform.localScale += new Vector3(scaleIncrease, scaleIncrease, scaleIncrease);
-        body.mass += massIncrease;
-        puller.forceFac += pullIncrease;
-        puller.distanceFac += distancePullIncrease;
+        ForceObject col = collision.gameObject.GetComponent<ForceObject>();
+
+        float ms = col.rb.mass;
+        float sc = ms * scaleScale;
+        transform.localScale += new Vector3(sc, sc, sc);
+        
+        body.mass += ms * massScale;
+        puller.forceFac += ms * pullScale;
+        puller.distanceFac += ms * distancePullScale;
 
         Destroy(collision.gameObject);
+
+        List<ContactPoint2D> contacts = new List<ContactPoint2D>();
+        collision.GetContacts(contacts);
+
+        foreach(ContactPoint2D cp2 in contacts)
+        {
+            body.AddForce(cp2.normalImpulse * -cp2.normal * collisionDampen, ForceMode2D.Impulse);
+        }
     }
 }
