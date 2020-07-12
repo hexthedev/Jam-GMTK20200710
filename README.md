@@ -1,4 +1,4 @@
-# The Benevolant Black Hole
+# The Benevolent Black Hole
 One player game about Discovery, Love and Consequences
 
 You are a Black Hole in the emptines of the universe. You feel alone and bored. But you have so much love to give... The time has come for you to explore the universe, make friends and share some love to the many new worlds you will discover! But don't get too close! You might accidently destroy what you once admired...
