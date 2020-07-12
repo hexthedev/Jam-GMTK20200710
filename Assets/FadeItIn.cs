@@ -11,6 +11,8 @@ public class FadeItIn : MonoBehaviour
 
     public void Update()
     {
+        gameisover.GameIsOver = true;
+
         if (alpha >= 1) return;
         alpha += Time.deltaTime * speed;
         img.color = new Color(img.color.r, img.color.g, img.color.b, alpha);

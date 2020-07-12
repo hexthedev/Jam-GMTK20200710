@@ -26,7 +26,7 @@ public class SpawnAsteroid : MonoBehaviour
             Vector2 rand = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized * range;
 
             ForceObject obj =  Instantiate(asteroidPre);
-            obj.transform.position = rand;
+            obj.transform.position = transform.position + new Vector3(rand.x, rand.y, 0);
         }
     }
 }

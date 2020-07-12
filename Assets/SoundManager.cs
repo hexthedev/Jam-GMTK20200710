@@ -13,6 +13,8 @@ public class SoundManager : MonoBehaviour
 
     public void PlayAudio(AudioClip clip)
     {
+        if (gameisover.GameIsOver) return;
+
         GameObject ng = new GameObject("AudioSource");
         AudioSource src = ng.AddComponent<AudioSource>();
         ng.transform.parent = transform;

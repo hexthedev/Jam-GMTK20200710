@@ -19,6 +19,7 @@ public class ForceObject : MonoBehaviour
     public bool isLovable = false;
     public bool isCauseSadness = false;
     public bool isCauseAngry = false;
+    public bool isPlayClip;
 
     [Header("Debug")]
     public Vector3 cachedVelocity;
@@ -43,7 +44,13 @@ public class ForceObject : MonoBehaviour
             }
 
             if(isCauseAngry) FaceSwapper.instance.ChangeFace(FaceSwapper.instance.faces.mad, 0.2f);
-            Destroy(gameObject);
+
+            if (isPlayClip)
+            {
+                Destroy(gameObject);
+                PlayClip();
+            }
+
             return rb.mass;
         }
 

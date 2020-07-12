@@ -5010,7 +5010,6 @@ MonoBehaviour:
   sren: {fileID: 5286213578981911883}
   pspr: {fileID: 11400000, guid: c6347db4cbe2c4542b50ee156cd436d4, type: 2}
   clip: {fileID: 11400000, guid: 0559f5d7eb212174586dee99af652a28, type: 2}
-  src: {fileID: 4406113276290244491}
   hasPlayedClip: 0
   isClipPlayer: 1
   massMin: 1.5
@@ -5019,6 +5018,8 @@ MonoBehaviour:
   fh: {fileID: 0}
   isLovable: 1
   isCauseSadness: 1
+  isCauseAngry: 0
+  isPlayClip: 1
   cachedVelocity: {x: 0, y: 0, z: 0}
   cachedAngularVelocity: 0
   isPaused: 0
