@@ -47,7 +47,7 @@ public class BlackHoleStats : MonoBehaviour
     public void Start()
     {
         StartCoroutine(UpdateLove());
-        StartCoroutine(UpdateSteal());
+        //StartCoroutine(UpdateSteal());
     }
 
     public void FixedUpdate()
@@ -92,43 +92,43 @@ public class BlackHoleStats : MonoBehaviour
         }
     }
 
-    IEnumerator UpdateSteal()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(stealAttemptSeconds);
+    //IEnumerator UpdateSteal()
+    //{
+    //    while (true)
+    //    {
+    //        yield return new WaitForSeconds(stealAttemptSeconds);
 
-            foreach (ForceObject fo in ForceManager.ForceReceivers)
-            {
-                if (fo == null) continue;
-                float mag = (fo.transform.position - transform.position).magnitude;
-                float scale = transform.localScale.x; // distances are modified by scale
+    //        foreach (ForceObject fo in ForceManager.ForceReceivers)
+    //        {
+    //            if (fo == null) continue;
+    //            float mag = (fo.transform.position - transform.position).magnitude;
+    //            float scale = transform.localScale.x; // distances are modified by scale
 
-                float inStealDistance = -mag + stealDistance + cont.body.mass;
-                if (inStealDistance > 0)
-                {
-                    if (Random.Range(0, 100f) <= stealChance)
-                    {
-                        //float close = 1 - inStealDistance / (stealDistance + scale); // larger when closer
+    //            float inStealDistance = -mag + stealDistance + cont.body.mass;
+    //            if (inStealDistance > 0)
+    //            {
+    //                if (Random.Range(0, 100f) <= stealChance)
+    //                {
+    //                    //float close = 1 - inStealDistance / (stealDistance + scale); // larger when closer
 
-                        float massToSteal = 1f;
-                        fo.StealMass(massToSteal);
+    //                    float massToSteal = 1f;
+    //                    fo.StealMass(massToSteal);
 
-                        FloatHeart f = Instantiate(massSteal);
-                        f.origin = fo.transform;
-                        f.target = transform;
-                        //f.transform.localScale = Vector3.one * massToSteal;
+    //                    FloatHeart f = Instantiate(massSteal);
+    //                    f.origin = fo.transform;
+    //                    f.target = transform;
+    //                    //f.transform.localScale = Vector3.one * massToSteal;
 
-                        f.onEnd = () =>
-                        {
-                            cont.RecieveMass(massToSteal);
-                            massScore.text = $"{Mathf.Round(cont.body.mass)}";
-                        };
-                    }
-                }
-            }
-        }
-    }
+    //                    f.onEnd = () =>
+    //                    {
+    //                        cont.RecieveMass(massToSteal);
+    //                        massScore.text = $"{Mathf.Round(cont.body.mass)}";
+    //                    };
+    //                }
+    //            }
+    //        }
+    //    }
+    //}
 
     private void OnDrawGizmos()
     {

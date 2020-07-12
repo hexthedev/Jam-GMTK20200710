@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9c0f35a1f47f1f41920bfdf657e8017, type: 3}
+  m_Name: Faces
+  m_EditorClassIdentifier: 
+  astonished: {fileID: 21300000, guid: 830876a94c9e04a408f00e522a8c67a5, type: 3}
+  crying: {fileID: 21300000, guid: 1fa78ed9cc03e884798e336bf114897b, type: 3}
+  happy: {fileID: 21300000, guid: 1b5d6a2bc220ae24299184c89232b208, type: 3}
+  inlove: {fileID: 21300000, guid: aadb9c6e300e1e74dbfd04fa515fcf69, type: 3}
+  mad: {fileID: 21300000, guid: 404b7543e419e374e852c8fe08f08282, type: 3}
+  normal: {fileID: 21300000, guid: 53c535eaa29b0b44a8fc416d96c47940, type: 3}
+  sad: {fileID: 21300000, guid: 1be5924d48b2c60439e90b72f1e09018, type: 3}

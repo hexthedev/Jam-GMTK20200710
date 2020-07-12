@@ -5,9 +5,12 @@ using UnityEngine;
 public class ForceObject : MonoBehaviour
 {
     public Rigidbody2D rb;
+    public SpriteRenderer sren;
+    public PossibleSprites pspr;
 
     [Header("Options")]
-    public float size = 1;
+    public float massMin = 1;
+    public float massMax = 2;
     public FloatHeart fh;
 
     [Header("Debug")]
@@ -36,13 +39,16 @@ public class ForceObject : MonoBehaviour
     public void Awake()
     {
         ForceManager.ForceReceivers.Add(this);
+        sren.sprite = pspr.GetRandom();
+
+        Initalize(Random.Range(massMin, massMax));
     }
 
-    public void OnValidate()
-    {
-        rb.mass = size;
-        transform.localScale = Vector3.one * size;
-    }
+    //public void OnValidate()
+    //{
+    //    rb.mass = size;
+    //    transform.localScale = Vector3.one * size;
+    //}
 
     public void Pause()
     {
