@@ -38,5 +38,12 @@ public class BlackHoleStats : MonoBehaviour
         timeAlive += Time.fixedDeltaTime;
         float minutes = timeAlive / 60;
         _timer.text = $"{Mathf.Floor(minutes)} : {(Mathf.Floor(timeAlive) % 60).ToString("00")}";
+
+        massScore.text = $"{Mathf.Round(cont.body.mass)}";
+    }
+
+    public void Update()
+    {
+        love = Mathf.Clamp(love, -1000, 1000);
     }
 }

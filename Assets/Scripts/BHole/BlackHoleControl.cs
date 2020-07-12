@@ -61,7 +61,7 @@ public class BlackHoleControl : MonoBehaviour
     public void RecieveMass(float ms)
     {
         float sc = ms * scaleScale;
-        transform.localScale += new Vector3(sc, sc, sc);
+        transform.localScale += new Vector3(sc, sc, 0);
 
         body.mass += ms * massScale;
         puller.forceFac += ms * pullScale;

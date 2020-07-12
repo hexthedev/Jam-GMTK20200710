@@ -15,6 +15,7 @@ public class ForceObject : MonoBehaviour
     public float massMax = 2;
     public float massMod = 1;
     public FloatHeart fh;
+    public bool isLovable = false;
 
     [Header("Debug")]
     public Vector3 cachedVelocity;
@@ -25,7 +26,7 @@ public class ForceObject : MonoBehaviour
     {
         transform.localScale = new Vector3(mass, mass, mass);
         rb.mass = mass * massMod;
-        rb.velocity = new Vector2(Random.Range(0, 1f), Random.Range(0, 1f) );
+        //rb.velocity = new Vector2(Random.Range(0, 1f), Random.Range(0, 1f) );
     }
 
     public float StealMass(float mass)

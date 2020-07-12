@@ -142,6 +142,7 @@ MonoBehaviour:
   massMax: 25
   massMod: 5
   fh: {fileID: 0}
+  isLovable: 1
   cachedVelocity: {x: 0, y: 0, z: 0}
   cachedAngularVelocity: 0
   isPaused: 0

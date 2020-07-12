@@ -139,7 +139,8 @@ MonoBehaviour:
   clip: {fileID: 0}
   src: {fileID: 0}
   massMin: 0.1
-  massMax: 3
+  massMax: 1.2
+  massMod: 1
   fh: {fileID: 0}
   cachedVelocity: {x: 0, y: 0, z: 0}
   cachedAngularVelocity: 0

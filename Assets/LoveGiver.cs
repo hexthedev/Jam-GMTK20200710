@@ -11,6 +11,11 @@ public class LoveGiver : MonoBehaviour
     public float loveAttemptSeconds;
     public float loveChance;
 
+    public SpawnAsteroid _spawn;
+    public bool isDoneFirst = false;
+
+    public CursorControl cur;
+
     public void Start()
     {
         StartCoroutine(UpdateLove());
@@ -39,10 +44,16 @@ public class LoveGiver : MonoBehaviour
             ForceObject[] obses = objs.ToArray();
             foreach (ForceObject fo in obses)
             {
-                if (fo == null) continue;
+                if (fo == null || !fo.isLovable) continue;
 
                 if (Random.Range(0, 100f) <= loveChance)
                 {
+                    if (!isDoneFirst)
+                    {
+                        _spawn.isSpawning = true;
+                        isDoneFirst = true;
+                    }
+
                     FloatHeart fh = Instantiate(stats.floatHeart, transform);
                     fh.origin = transform;
                     fh.target = fo.transform;
@@ -51,7 +62,8 @@ public class LoveGiver : MonoBehaviour
                         if (fo != null && fo.rb != null)
                         {
                             stats.love += fo.rb.mass;
-                            stats.loveValUI.text = $"{Mathf.Round(stats.love)}";
+                            //stats.loveValUI.text = $"{Mathf.Round(stats.love)}";
+                            cur.SetLove(stats.love);
                         }
                     };
                 }
