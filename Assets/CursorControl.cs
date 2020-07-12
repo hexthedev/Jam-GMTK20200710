@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class CursorControl : MonoBehaviour
 {
+    public static CursorControl instance;
+
     public RectTransform trans;
     public Image img;
 
@@ -27,6 +29,10 @@ public class CursorControl : MonoBehaviour
     public float cur;
     public float dist;
 
+    public void Awake()
+    {
+        instance = this;
+    }
 
     public void Start()
     {

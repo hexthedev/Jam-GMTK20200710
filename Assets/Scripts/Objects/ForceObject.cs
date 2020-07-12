@@ -16,6 +16,7 @@ public class ForceObject : MonoBehaviour
     public float massMod = 1;
     public FloatHeart fh;
     public bool isLovable = false;
+    public bool isCauseSadness = false;
 
     [Header("Debug")]
     public Vector3 cachedVelocity;
@@ -33,6 +34,11 @@ public class ForceObject : MonoBehaviour
     {
         if(rb.mass < mass)
         {
+            if (isCauseSadness) {
+                BlackHoleStats.instance.love -= 200;
+                CursorControl.instance.SetLove(BlackHoleStats.instance.love);
+                FaceSwapper.instance.ChangeFace(FaceSwapper.instance.faces.crying, 2f);
+            }
             Destroy(gameObject);
             return rb.mass;
         }

@@ -10,6 +10,7 @@ public class LoveGiver : MonoBehaviour
 
     public float loveAttemptSeconds;
     public float loveChance;
+    public float loveMultiple = 1;
 
     public SpawnAsteroid _spawn;
     public bool isDoneFirst = false;
@@ -61,9 +62,10 @@ public class LoveGiver : MonoBehaviour
                     {
                         if (fo != null && fo.rb != null)
                         {
-                            stats.love += fo.rb.mass;
+                            stats.love += fo.rb.mass * loveMultiple;
                             //stats.loveValUI.text = $"{Mathf.Round(stats.love)}";
                             cur.SetLove(stats.love);
+                            FaceSwapper.instance.ChangeFace(FaceSwapper.instance.faces.inlove, 2f);
                         }
                     };
                 }

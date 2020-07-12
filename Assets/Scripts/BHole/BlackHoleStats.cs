@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class BlackHoleStats : MonoBehaviour
 {
+    public static BlackHoleStats instance;
+
     [Header("Love")]
     public float loveDistance;
     public float loveChance;
@@ -31,6 +33,11 @@ public class BlackHoleStats : MonoBehaviour
     public TextMeshProUGUI _timer;
     public Slider _slider;
     public GameObject gameover;
+
+    public void Awake()
+    {
+        instance = this;
+    }
 
     public void FixedUpdate()
     {

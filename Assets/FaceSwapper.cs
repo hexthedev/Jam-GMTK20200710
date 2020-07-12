@@ -4,10 +4,17 @@ using UnityEngine;
 
 public class FaceSwapper : MonoBehaviour
 {
+    public static FaceSwapper instance;
+
     public SpriteRenderer rend;
     public CharacterFaces faces;
 
     Coroutine faceRoutine = null;
+
+    public void Awake()
+    {
+        instance = this;
+    }
 
     public void ChangeFace(Sprite face, float time)
     {

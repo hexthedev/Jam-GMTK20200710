@@ -473,6 +473,7 @@ MonoBehaviour:
   stats: {fileID: 1693400435}
   loveAttemptSeconds: 0.5
   loveChance: 50
+  loveMultiple: 2
   _spawn: {fileID: 1228347133}
   isDoneFirst: 0
   cur: {fileID: 549765808}
@@ -3940,7 +3941,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 7
+  m_Radius: 5
 --- !u!114 &764411478
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14352,7 +14353,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1693400427}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.020000458, y: 0.77000046, z: -40}
+  m_LocalPosition: {x: 0.020000458, y: 0.77000046, z: 1}
   m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_Children:
   - {fileID: 59728096}
@@ -14594,7 +14595,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1707787901}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 150}
+  m_LocalPosition: {x: 0, y: 0, z: 47}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 764411476}
@@ -14611,7 +14612,7 @@ ParticleSystemForceField:
   m_Parameters:
     m_Shape: 0
     m_StartRange: 0
-    m_EndRange: 7
+    m_EndRange: 5
     m_Length: 10000
     m_GravityFocus: 0
     m_RotationRandomness: {x: 0, y: 0}
@@ -14777,7 +14778,7 @@ ParticleSystemForceField:
     m_GravityCurve:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.1
+      scalar: 0.5
       minScalar: 1
       maxCurve:
         serializedVersion: 2
