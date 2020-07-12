@@ -31,7 +31,9 @@ public class Tiler : MonoBehaviour
                 GameObject ob = new GameObject($"tile({i}, {j})");
                 ob.transform.SetParent(transform);
                 ob.transform.position = new Vector3(i, j, 100);
-                ob.AddComponent<SpriteRenderer>().sprite = tile;
+                SpriteRenderer sp = ob.AddComponent<SpriteRenderer>();
+                sp.sprite = tile;
+                sp.sortingLayerName = "Background";
                 tileGos[index++] = ob;
             }
         }
