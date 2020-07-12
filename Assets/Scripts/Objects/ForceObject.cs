@@ -8,7 +8,8 @@ public class ForceObject : MonoBehaviour
     public SpriteRenderer sren;
     public PossibleSprites pspr;
     public PlanetClips clip;
-    public AudioSource src;
+    public bool hasPlayedClip = false;
+    public bool isClipPlayer = false;
 
     [Header("Options")]
     public float massMin = 1;
@@ -17,6 +18,7 @@ public class ForceObject : MonoBehaviour
     public FloatHeart fh;
     public bool isLovable = false;
     public bool isCauseSadness = false;
+    public bool isCauseAngry = false;
 
     [Header("Debug")]
     public Vector3 cachedVelocity;
@@ -39,6 +41,8 @@ public class ForceObject : MonoBehaviour
                 CursorControl.instance.SetLove(BlackHoleStats.instance.love);
                 FaceSwapper.instance.ChangeFace(FaceSwapper.instance.faces.crying, 2f);
             }
+
+            if(isCauseAngry) FaceSwapper.instance.ChangeFace(FaceSwapper.instance.faces.mad, 0.2f);
             Destroy(gameObject);
             return rb.mass;
         }
@@ -83,5 +87,14 @@ public class ForceObject : MonoBehaviour
         rb.angularVelocity = cachedAngularVelocity;
 
         isPaused = false;
+    }
+
+    public void PlayClip()
+    {
+        if (isClipPlayer && !hasPlayedClip)
+        {
+            SoundManager.instance.PlayAudio(clip.GetRandom());
+            hasPlayedClip = true;
+        }
     }
 }

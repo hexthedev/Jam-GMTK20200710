@@ -137,12 +137,14 @@ MonoBehaviour:
   sren: {fileID: 5286213578981911883}
   pspr: {fileID: 11400000, guid: f5acda0d01d825c468ec39215a206a19, type: 2}
   clip: {fileID: 0}
-  src: {fileID: 0}
+  hasPlayedClip: 0
+  isClipPlayer: 0
   massMin: 15
   massMax: 25
-  massMod: 5
+  massMod: 2
   fh: {fileID: 0}
   isLovable: 1
+  isCauseSadness: 0
   cachedVelocity: {x: 0, y: 0, z: 0}
   cachedAngularVelocity: 0
   isPaused: 0

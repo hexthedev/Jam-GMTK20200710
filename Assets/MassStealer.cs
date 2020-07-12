@@ -9,6 +9,8 @@ public class MassStealer : MonoBehaviour
     public BlackHoleControl cont;
     public float stealRate;
 
+    public bool isClipTrigger;
+
     public void Update()
     {
         ForceObject[] obses = objs.ToArray();
@@ -16,6 +18,11 @@ public class MassStealer : MonoBehaviour
         {
             if (obs == null) continue;
             cont.RecieveMass(obs.StealMass(Time.deltaTime * Mathf.Sqrt(cont.body.mass) * stealRate));
+
+            if (isClipTrigger)
+            {
+                obs.PlayClip();
+            }
         }
 
         objs.RemoveAll(o => o == null);

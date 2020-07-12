@@ -5011,6 +5011,8 @@ MonoBehaviour:
   pspr: {fileID: 11400000, guid: c6347db4cbe2c4542b50ee156cd436d4, type: 2}
   clip: {fileID: 11400000, guid: 0559f5d7eb212174586dee99af652a28, type: 2}
   src: {fileID: 4406113276290244491}
+  hasPlayedClip: 0
+  isClipPlayer: 1
   massMin: 1.5
   massMax: 4
   massMod: 3

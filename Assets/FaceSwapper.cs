@@ -11,9 +11,17 @@ public class FaceSwapper : MonoBehaviour
 
     Coroutine faceRoutine = null;
 
+    public Sprite sp;
+
     public void Awake()
     {
         instance = this;
+        sp = faces.normal;
+    }
+
+    public void ChangeBaseFace(Sprite sp)
+    {
+        this.sp = sp;
     }
 
     public void ChangeFace(Sprite face, float time)
@@ -26,6 +34,6 @@ public class FaceSwapper : MonoBehaviour
     {
         rend.sprite = face;
         yield return new WaitForSeconds(time);
-        rend.sprite = faces.normal;
+        rend.sprite = sp;
     }
 }

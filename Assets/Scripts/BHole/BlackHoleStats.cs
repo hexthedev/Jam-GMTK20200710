@@ -15,6 +15,7 @@ public class BlackHoleStats : MonoBehaviour
     public float love;
     public TextMeshProUGUI loveValUI;
     public FloatHeart floatHeart;
+    public GameObject loveTrigger;
 
     [Header("Mass")]
     public float stealDistance;
@@ -52,5 +53,12 @@ public class BlackHoleStats : MonoBehaviour
     public void Update()
     {
         love = Mathf.Clamp(love, -1000, 1000);
+
+        if (love < 0) FaceSwapper.instance.ChangeBaseFace(FaceSwapper.instance.faces.sad);
+        if (love > 0) FaceSwapper.instance.ChangeBaseFace(FaceSwapper.instance.faces.happy);
+
+
+        if (cont.body.mass >= 100 ) loveTrigger.SetActive(false);
+        if (cont.body.mass >= 400) gameover.SetActive(true);
     }
 }

@@ -30,7 +30,7 @@ public class Tiler : MonoBehaviour
             {
                 GameObject ob = new GameObject($"tile({i}, {j})");
                 ob.transform.SetParent(transform);
-                ob.transform.position = new Vector3(i, j, 1);
+                ob.transform.position = new Vector3(i, j, 100);
                 ob.AddComponent<SpriteRenderer>().sprite = tile;
                 tileGos[index++] = ob;
             }
