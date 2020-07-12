@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 0527c2040fc6f754780cc201c2c5cbd4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9b6dca064913f4e49a0c540d6eb505c8, type: 3}
   m_Color: {r: 0.8498719, g: 0.6517889, b: 0.9150943, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -136,8 +136,10 @@ MonoBehaviour:
   rb: {fileID: 5286213578981911925}
   sren: {fileID: 5286213578981911883}
   pspr: {fileID: 11400000, guid: c11c674c0141541469128914c9e11d94, type: 2}
-  massMin: 0.25
-  massMax: 1
+  clip: {fileID: 0}
+  src: {fileID: 0}
+  massMin: 0.1
+  massMax: 3
   fh: {fileID: 0}
   cachedVelocity: {x: 0, y: 0, z: 0}
   cachedAngularVelocity: 0

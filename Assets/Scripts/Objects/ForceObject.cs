@@ -7,10 +7,13 @@ public class ForceObject : MonoBehaviour
     public Rigidbody2D rb;
     public SpriteRenderer sren;
     public PossibleSprites pspr;
+    public PlanetClips clip;
+    public AudioSource src;
 
     [Header("Options")]
     public float massMin = 1;
     public float massMax = 2;
+    public float massMod = 1;
     public FloatHeart fh;
 
     [Header("Debug")]
@@ -21,19 +24,21 @@ public class ForceObject : MonoBehaviour
     public void Initalize(float mass)
     {
         transform.localScale = new Vector3(mass, mass, mass);
-        rb.mass = mass;
+        rb.mass = mass * massMod;
+        rb.velocity = new Vector2(Random.Range(0, 1f), Random.Range(0, 1f) );
     }
 
-    public void StealMass(float mass)
+    public float StealMass(float mass)
     {
         if(rb.mass < mass)
         {
             Destroy(gameObject);
-            return;
+            return rb.mass;
         }
 
         rb.mass -= mass;
-        transform.localScale -= Vector3.one * mass;
+        transform.localScale -= Vector3.one * mass / massMod;
+        return mass;
     }
 
     public void Awake()

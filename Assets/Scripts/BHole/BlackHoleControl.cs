@@ -67,27 +67,4 @@ public class BlackHoleControl : MonoBehaviour
         puller.forceFac += ms * pullScale;
         puller.distanceFac += ms * distancePullScale;
     }
-
-
-    //private void OnTriggerEnter2D(Collider2D collision)
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        ForceObject col = collision.gameObject.GetComponent<ForceObject>();
-
-        //float ms = col.rb.mass;
-        RecieveMass(0.2f);
-        col.StealMass(0.2f);
-
-        //Destroy(collision.gameObject);
-        //stats.Impact(col.rb.mass);
-
-        //List<ContactPoint2D> contacts = new List<ContactPoint2D>();
-        //collision.GetContacts(contacts);
-
-        //// Attempt to dampen stof
-        //foreach (ContactPoint2D cp2 in contacts)
-        //{
-        //    body.AddForce(cp2.normalImpulse * -cp2.normal * collisionDampen, ForceMode2D.Impulse);
-        //}
-    }
 }
