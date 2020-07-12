@@ -5,10 +5,11 @@ You are a Black Hole in the emptines of the universe. You feel alone and bored. 
 
 Created by Laurent Corriveau, James McCafferty and Étienne Thibeault
 
-[](./docs/1.jpg)
-[](./docs/2.jpg)
-[](./docs/3.jpg)
-[](./docs/4.jpg)
-[](./docs/5.jpg)
+![alt text](https://https://github.com/hexthedev/Jam-GMTK20200710/blob/master/docs/1.jpg?raw=true)
+![alt text](https://https://github.com/hexthedev/Jam-GMTK20200710/blob/master/docs/2.jpg?raw=true)
+![alt text](https://https://github.com/hexthedev/Jam-GMTK20200710/blob/master/docs/3.jpg?raw=true)
+![alt text](https://https://github.com/hexthedev/Jam-GMTK20200710/blob/master/docs/4.jpg?raw=true)
+![alt text](https://https://github.com/hexthedev/Jam-GMTK20200710/blob/master/docs/5.jpg?raw=true)
+
 
 Repo for my teams submission to the GMTK Game Jam - 10 July 2020 to 12 July 2020 (48 hours)
