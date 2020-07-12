@@ -17,6 +17,8 @@ public class LoveGiver : MonoBehaviour
 
     public CursorControl cur;
 
+    public Sprite[] txts; 
+
     public void Start()
     {
         StartCoroutine(UpdateLove());
@@ -53,6 +55,9 @@ public class LoveGiver : MonoBehaviour
                     {
                         _spawn.isSpawning = true;
                         isDoneFirst = true;
+
+                        Sprite sp = txts[Random.Range(0, txts.Length)];
+                        Texter.instance.ShowTextSprite(sp, 3f);
                     }
 
                     FloatHeart fh = Instantiate(stats.floatHeart, transform);
@@ -68,6 +73,12 @@ public class LoveGiver : MonoBehaviour
                             FaceSwapper.instance.ChangeFace(FaceSwapper.instance.faces.inlove, 2f);
                         }
                     };
+
+                    if(Random.Range(0, 1f) < 0.1f)
+                    {
+                        Sprite sp = txts[Random.Range(0, txts.Length)];
+                        Texter.instance.ShowTextSprite(sp, 3f);
+                    }
                 }
             }
 
